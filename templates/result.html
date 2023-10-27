@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>Wynik scoringu</title>
 </head>
 <body>
-$END$
+    <h1>Wynik scoringu projektu IT:</h1>
+    <p>Twój scoring to: {{ total_score }} punktów</p>
+    {% if results %}
+        <h2>Wyniki zapisane w bazie danych:</h2>
+        <table>
+            <tr>
+                <th>Nazwa deala</th>
+                <th>Typ klienta</th>
+                <th>Scoring</th>
+            </tr>
+            {% for row in results %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }} punktów</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
 </body>
 </html>

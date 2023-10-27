@@ -106,7 +106,22 @@ def calculate_score():
         conn.commit()
         conn.close()
 
-        return render_template('result.html', total_score=total_score)
+        # Dodać log, aby sprawdzić, czy dane są poprawnie zapisane
+        print(f"Dane zapisane: deal_name={deal_name}, customer_type={customer_type}, total_score={total_score}")
+
+        # Pobieranie wyników z bazy danych
+        conn = sqlite3.connect('scoring_database.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT deal_name, customer_type, total_score FROM scores")
+        results = cursor.fetchall()
+        conn.close()
+
+        # Dodać log, aby sprawdzić pobrane wyniki
+        print("Wyniki z bazy danych:")
+        for row in results:
+            print(row)
+
+        return render_template('result.html', total_score=total_score, results=results)
 
     return render_template('form.html')
 
