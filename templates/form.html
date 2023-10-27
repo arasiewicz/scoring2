@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scoring Projektu IT</title>
+</head>
+<body>
+    <h1>Scoring Projektu IT</h1>
+    <form method="POST">
+        <label for="deal_name">Nazwa deala:</label>
+        <input type="text" name="deal_name" id="deal_name" required><br><br>
+
+        <label for="customer_type">Typ klienta:</label>
+        <input type="radio" name="customer_type" value="New Business" id="customer_type_new" required>
+        <label for="customer_type_new">New Business</label>
+        <input type="radio" name="customer_type" value="Current Customer" id="customer_type_current">
+        <label for="customer_type_current">Current Customer</label><br><br>
+    <form method="POST">
+        <label for="geography">1. Geografia:</label>
+        <select name="geography" id="geography">
+            <option value="EU + UK">EU + UK</option>
+            <option value="USA East">USA East</option>
+            <option value="PL">PL</option>
+            <option value="Middle East">Middle East</option>
+            <option value="Inne">Inne</option>
+            <option value="Rosja">Rosja</option>
+            <option value="Białoruś">Białoruś</option>
+        </select><br><br>
+
+        <label>2. Technologia (wybierz co najmniej jedną):</label><br>
+        <input type="checkbox" name="technology" value="Java"> Java (3 punkty)<br>
+        <input type="checkbox" name="technology" value="React"> React (3 punkty)<br>
+        <input type="checkbox" name="technology" value="iOS"> iOS (3 punkty)<br>
+        <input type="checkbox" name="technology" value="Android"> Android (3 punkty)<br>
+        <input type="checkbox" name="technology" value="PHP"> PHP (2 punkty)<br>
+        <input type="checkbox" name="technology" value=".NET"> .NET (2 punkty)<br>
+        <input type="checkbox" name="technology" value="node.js"> node.js (2 punkty)<br>
+        <input type="checkbox" name="technology" value="Angular"> Angular (2 punkty)<br>
+        <input type="checkbox" name="technology" value="Inne"> Inne (0 punktów)<br>
+        <input type="checkbox" name="technology" value="Legacy code"> Legacy code (-1 punkt)<br><br>
+
+        <label for="scale">3. Skala projektu:</label>
+        <select name="scale" id="scale">
+            <option value="Pojedyncze FTE">Pojedyncze FTE</option>
+            <option value="3-4 FTE">3-4 FTE</option>
+            <option value="powyżej 8 FTE">powyżej 8 FTE</option>
+        </select><br><br>
+
+        <label for="industry">4. Industry:</label>
+        <select name="industry" id="industry">
+            <option value="Banking">Banking</option>
+            <option value="Insurance">Insurance</option>
+            <option value="Fintech">Fintech</option>
+            <option value="Edtech">Edtech</option>
+            <option value="Inne">Inne</option>
+        </select><br><br>
+
+        <label>5. Świadomość technologiczna klienta (wybierz co najmniej jedną):</label><br>
+        <input type="checkbox" name="tech_awareness" value="Greenfield"> Greenfield (3 punkty)<br>
+        <input type="checkbox" name="tech_awareness" value="Klient ma swój dział IT"> Klient ma swój dział IT (2 punkty)<br>
+        <input type="checkbox" name="tech_awareness" value="PM po stronie
+        <input type="checkbox" name="tech_awareness" value="PM po stronie Speednet"> PM po stronie Speednet (2 punkty)<br>
+        <input type="checkbox" name="tech_awareness" value="Nic z podanych"> Nic z podanych (0 punktów)<br><br>
+
+        <label>6. Różne (wybierz co najmniej jedną):</label><br>
+        <input type="checkbox" name="other" value="Front do klienta i kontakt z osobami decyzyjnymi"> Front do klienta i kontakt z osobami decyzyjnymi (3 punkty)<br>
+        <input type="checkbox" name="other" value="Znamy budżet klienta"> Znamy budżet klienta (2 punkty)<br>
+        <input type="checkbox" name="other" value="Nic z podanych"> Nic z podanych (0 punktów)<br>
+        <input type="checkbox" name="other" value="Brak timeline lub timeline nierealistyczny"> Brak timeline lub timeline nierealistyczny (-1 punkt)<br>
+        <input type="checkbox" name="other" value="Fixed Price"> Fixed Price (-1 punkt)<br>
+        <input type="checkbox" name="other" value="Klient uważa cenę za przesadnie dużą"> Klient uważa cenę za przesadnie dużą (-1 punkt)<br>
+        <input type="checkbox" name="other" value="Przetargi/public"> Przetargi/public (-1 punkt)<br>
+        <input type="checkbox" name="other" value="RFI/RFP/konkursy piękności"> RFI/RFP/konkursy piękności (-1 punkt)<br>
+        <input type="checkbox" name="other" value="Nie mamy ekspozycji na decision makerów"> Nie mamy ekspozycji na decision makerów (0 punktów)<br><br>
+
+        <label for="project_length">7. Długość projektu:</label>
+        <select name="project_length" id="project_length">
+            <option value="do 3 miesięcy">do 3 miesięcy</option>
+            <option value="3-6 miesięcy">3-6 miesięcy</option>
+            <option value="6-12 miesięcy">6-12 miesięcy</option>
+            <option value="powyżej 12 miesiecy">powyżej 12 miesięcy</option>
+        </select><br><br>
+
+        <input type="submit" value="Oblicz scoring">
+    </form>
+
+    <!-- Wyświetl wynik tutaj -->
+    {% if total_score is defined %}
+        <h2>Wynik scoringu projektu IT:</h2>
+        <p>Twój scoring to: {{ total_score }} punktów</p>
+    {% endif %}
+
+</body>
+</html>
+</body>
+</html>
