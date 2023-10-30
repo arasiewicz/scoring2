@@ -1,3 +1,4 @@
+import os
 import sqlite3
 from flask import Flask, render_template, request, send_file
 from openpyxl import Workbook
@@ -164,5 +165,9 @@ def view_database():
     response = make_response(render_template('database.html', results=results))
     response.headers['Content-Type'] = 'text/html'
     return response
-if __name__ == '__main__':
-    app.run(debug=True)
+
+# Ustaw port na podstawie zmiennej środowiskowej lub domyślnie na 5000
+port = int(os.environ.get("PORT", 5000))
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=port)
