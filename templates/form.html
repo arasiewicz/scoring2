@@ -2,18 +2,25 @@
 <html>
 <head>
     <title>Scoring Projektu IT</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
 </head>
 <body>
     <h1>Scoring Projektu IT</h1>
-    <form method="POST">
+    <form method="POST" action="/">
         <label for="deal_name">Nazwa deala:</label>
         <input type="text" name="deal_name" id="deal_name" required><br><br>
 
         <label for="customer_type">Typ klienta:</label>
-        <input type="radio" name="customer_type" value="New Business" id="customer_type_new" required>
-        <label for="customer_type_new">New Business</label>
-        <input type="radio" name="customer_type" value="Current Customer" id="customer_type_current">
-        <label for="customer_type_current">Current Customer</label><br><br>
+        <div class="customer-type">
+            <input type="radio" name="customer_type" value="New Business" id="customer_type_new" required>
+            <label for="customer_type_new">New Business</label>
+        </div>
+        <div class="customer-type">
+            <input type="radio" name="customer_type" value="Current Customer" id="customer_type_current">
+            <label for="customer_type_current">Current Customer</label>
+        </div>
+
     <form method="POST">
         <label for="geography">1. Geografia:</label>
         <select name="geography" id="geography">
@@ -81,6 +88,7 @@
         </select><br><br>
 
         <input type="submit" value="Oblicz scoring">
+
     </form>
 
     <!-- Wyświetl wynik tutaj -->
@@ -89,6 +97,9 @@
         <p>Twój scoring to: {{ total_score }} punktów</p>
     {% endif %}
 
+        <h2>Pobierz aktualną bazę wyników</h2>
+<a href="{{ url_for('export_excel') }}" class="btn btn-primary">Pobierz wyniki w formacie Excel</a>
+<a href="{{ url_for('view_database') }}" class="btn btn-primary">Zobacz zapisane wyniki</a>
 </body>
 </html>
 </body>

@@ -1,5 +1,9 @@
 import sqlite3
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
+from openpyxl import Workbook
+from io import BytesIO
+from flask import Flask, render_template, request, send_file, make_response
+
 
 app = Flask(__name__)
 
@@ -106,9 +110,6 @@ def calculate_score():
         conn.commit()
         conn.close()
 
-        # Dodać log, aby sprawdzić, czy dane są poprawnie zapisane
-        print(f"Dane zapisane: deal_name={deal_name}, customer_type={customer_type}, total_score={total_score}")
-
         # Pobieranie wyników z bazy danych
         conn = sqlite3.connect('scoring_database.db')
         cursor = conn.cursor()
@@ -116,14 +117,52 @@ def calculate_score():
         results = cursor.fetchall()
         conn.close()
 
-        # Dodać log, aby sprawdzić pobrane wyniki
-        print("Wyniki z bazy danych:")
-        for row in results:
-            print(row)
-
         return render_template('result.html', total_score=total_score, results=results)
 
     return render_template('form.html')
 
+@app.route('/export_excel', methods=['GET'])
+def export_excel():
+    # Pobieranie wyników z bazy danych
+    conn = sqlite3.connect('scoring_database.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT deal_name, customer_type, total_score FROM scores")
+    results = cursor.fetchall()
+    conn.close()
+
+    # Tworzenie nowego arkusza Excel
+    workbook = Workbook()
+    sheet = workbook.active
+    sheet.title = 'Wyniki Scoringu'
+
+    # Nagłówki kolumn
+    sheet['A1'] = 'Nazwa deala'
+    sheet['B1'] = 'Typ klienta'
+    sheet['C1'] = 'Scoring'
+
+    # Zapisywanie wyników do arkusza Excel
+    for idx, result in enumerate(results, start=2):
+        sheet[f'A{idx}'] = result[0]
+        sheet[f'B{idx}'] = result[1]
+        sheet[f'C{idx}'] = result[2]
+
+    # Tworzenie obiektu BytesIO do przechowywania pliku Excel
+    excel_file = BytesIO()
+    workbook.save(excel_file)
+    excel_file.seek(0)
+
+    return send_file(excel_file, as_attachment=True, download_name='wyniki_scoringu.xlsx')
+@app.route('/view_database')
+def view_database():
+    conn = sqlite3.connect('scoring_database.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT deal_name, customer_type, total_score FROM scores")
+    results = cursor.fetchall()
+    conn.close()
+
+    # Utwórz odpowiedź HTML zawierającą tabelę z wynikami bazy danych
+    response = make_response(render_template('database.html', results=results))
+    response.headers['Content-Type'] = 'text/html'
+    return response
 if __name__ == '__main__':
     app.run(debug=True)

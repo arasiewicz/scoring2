@@ -23,5 +23,7 @@
             {% endfor %}
         </table>
     {% endif %}
+    <!-- Dodaj link do eksportu do Excela na stronie -->
+<a href="{{ url_for('export_excel') }}" download="wyniki_scoringu.xlsx">Eksport do Excela</a>
 </body>
 </html>

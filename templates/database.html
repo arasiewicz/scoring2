@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Baza wyników scoringu</title>
+</head>
+<body>
+    <h1>Baza wyników scoringu</h1>
+    <table>
+        <tr>
+            <th>Nazwa deala</th>
+            <th>Typ klienta</th>
+            <th>Scoring</th>
+        </tr>
+        {% for result in results %}
+        <tr>
+            <td>{{ result[0] }}</td>
+            <td>{{ result[1] }}</td>
+            <td>{{ result[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
